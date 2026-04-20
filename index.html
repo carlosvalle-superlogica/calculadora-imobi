@@ -73,7 +73,7 @@
                             <input type="number" id="custoTed" value="8.00" class="input-box mb-4" oninput="calcular()">
                             <label class="label-title">% de TED</label>
                             <div class="flex items-center gap-3">
-                                <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
+                                <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateLabels()">
                                 <span id="perTedLabel" class="text-xs font-black text-slate-700 w-12 text-right">50%</span>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <input type="number" id="custoPixPJ" value="2.00" class="input-box mb-4" oninput="calcular()">
                             <label class="label-title">% de PIX</label>
                             <div class="flex items-center gap-3">
-                                <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
+                                <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateLabels()">
                                 <span id="perPixLabel" class="text-xs font-black text-slate-700 w-12 text-right">50%</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                     <p id="resAnual" class="text-4xl font-black text-white tracking-tight">R$ 0</p>
                                 </div>
                             </div>
-                            <button onclick="window.print()" class="w-full bg-white text-slate-900 font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-xl">Gerar Relatório PDF</button>
+                            <button onclick="window.print()" class="w-full bg-white text-slate-900 font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-xl hover:bg-slate-200 transition-colors">Gerar Relatório PDF</button>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
     <script>
         lucide.createIcons();
 
-        // Formatação limpa (sem centavos) para bater com a planilha
+        // Formatação sem casas decimais (,00) igual a planilha
         const formatadorReais = new Intl.NumberFormat('pt-BR', { 
             style: 'currency', 
             currency: 'BRL',
@@ -137,14 +137,10 @@
             maximumFractionDigits: 0 
         });
 
-        function updateMix(source) {
-            const perTed = document.getElementById('perTed');
-            const perPix = document.getElementById('perPix');
-            if (source === 'ted') { perPix.value = 100 - perTed.value; } 
-            else { perTed.value = 100 - perPix.value; }
-            
-            document.getElementById('perTedLabel').innerText = perTed.value + "%";
-            document.getElementById('perPixLabel').innerText = perPix.value + "%";
+        // Atualiza os indicadores visuais e depois calcula
+        function updateLabels() {
+            document.getElementById('perTedLabel').innerText = document.getElementById('perTed').value + "%";
+            document.getElementById('perPixLabel').innerText = document.getElementById('perPix').value + "%";
             calcular();
         }
 
@@ -159,22 +155,22 @@
             const pTed = (parseFloat(document.getElementById('perTed').value) || 0) / 100;
             const pPix = (parseFloat(document.getElementById('perPix').value) || 0) / 100;
 
-            // 1. LÓGICA DE TEMPO (CONFORME PLANILHA)
+            // 1. TEMPO (Células C32 e C34 da planilha)
             const horasGastasHoje = (qtd * minHoje) / 60; 
-            const horasEconomizadas = horasGastasHoje * 0.66; // Redução exata de 66% (Benchmark)
+            const horasEconomizadas = horasGastasHoje * 0.66; // Redução de 66% (Benchmark)
 
             // 2. MÃO DE OBRA (Salário / 176h)
             const valorHoraAnalista = salario / 176; 
             const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista; 
 
-            // 3. TARIFAS
+            // 3. TARIFAS (Desvinculadas)
             const economiaTarifas = (cesta * numContas) + (qtd * pTed * custoTed) + (qtd * pPix * custoPixPJ); 
 
             // 4. TOTAIS
             const totalMensal = economiaMaoDeObra + economiaTarifas;
             const totalAnual = totalMensal * 12;
 
-            // INSERINDO NA TELA
+            // ATUALIZANDO OS VALORES NA TELA
             document.getElementById('resHoras').innerText = horasEconomizadas.toFixed(1).replace('.', ',');
             document.getElementById('resValorTempo').innerText = "Mão de Obra: " + formatadorReais.format(economiaMaoDeObra);
             document.getElementById('resTarifas').innerText = formatadorReais.format(economiaTarifas);
