@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .card-glass { background: white; border: 1px solid #e2e8f0; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; font-weight: 500; outline: none; transition: all 0.2s; font-size: 14px; }
+        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; font-weight: 600; outline: none; transition: all 0.2s; font-size: 14px; color: #0f172a; }
         .input-box:focus { border-color: #2563eb; background: white; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
         .label-title { display: block; text-transform: uppercase; font-size: 10px; font-weight: 800; color: #64748b; margin-bottom: 6px; letter-spacing: 0.05em; }
     </style>
@@ -19,11 +19,11 @@
     <div class="max-w-6xl mx-auto">
         <header class="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
-                <h1 class="text-2xl font-black tracking-tight text-slate-900">Análise de Viabilidade Econômica</h1>
-                <p class="text-slate-500 text-sm font-medium">Fiel à Planilha de Economia Superlógica Imobi</p>
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 uppercase">Calculadora de Eficiência Imobi</h1>
+                <p class="text-slate-500 text-sm font-medium italic">Fiel aos parâmetros da planilha de economia</p>
             </div>
-            <div class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
-                Modo Consultor
+            <div class="bg-blue-600 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
+                Resultado de Alta Precisão
             </div>
         </header>
 
@@ -31,62 +31,62 @@
             <div class="lg:col-span-7 space-y-6">
                 
                 <div class="card-glass p-6">
-                    <div class="flex items-center gap-3 mb-6 text-blue-600">
+                    <div class="flex items-center gap-3 mb-6 text-blue-600 border-b pb-4">
                         <i data-lucide="users" class="w-5 h-5"></i>
-                        <h2 class="text-md font-bold uppercase tracking-tight text-blue-600">1. Dados Operacionais do Cliente</h2>
+                        <h2 class="text-sm font-black uppercase tracking-widest">1. Dados Operacionais</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                            <label class="label-title">Nº Pagamentos / Mês</label>
+                            <label class="label-title">Nº de pagamentos por mês</label>
                             <input type="number" id="qtdPagamentos" value="500" class="input-box" oninput="calcular()">
                         </div>
                         <div>
-                            <label class="label-title">Minutos por Pagamento (Hoje)</label>
+                            <label class="label-title">Minutos gastos por pgto (Hoje)</label>
                             <input type="number" id="minutosHoje" value="2.5" step="0.1" class="input-box" oninput="calcular()">
                         </div>
                         <div>
-                            <label class="label-title">Nº de Funcionários no Financeiro</label>
+                            <label class="label-title">Nº de funcionários no financeiro</label>
                             <input type="number" id="numFuncionarios" value="2" class="input-box" oninput="calcular()">
                         </div>
                         <div>
-                            <label class="label-title">Salário Médio Analista (R$)</label>
-                            <input type="number" id="salarioMedio" value="3500" class="input-box" oninput="calcular()">
+                            <label class="label-title">Nº de contas bancárias paralelas</label>
+                            <input type="number" id="numContas" value="3" class="input-box" oninput="calcular()">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="label-title">Salário médio do analista (R$)</label>
+                            <input type="number" id="salarioMedio" value="3500" class="input-box text-blue-600" oninput="calcular()">
                         </div>
                     </div>
                 </div>
 
                 <div class="card-glass p-6 bg-slate-50 border-slate-200">
-                    <div class="flex items-center gap-3 mb-6 text-slate-700">
+                    <div class="flex items-center gap-3 mb-6 text-slate-700 border-b pb-4">
                         <i data-lucide="landmark" class="w-5 h-5"></i>
-                        <h2 class="text-md font-bold uppercase tracking-tight text-slate-700">2. Custos Bancários Atuais</h2>
+                        <h2 class="text-sm font-black uppercase tracking-widest">2. Custos Bancários Atuais</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        <div class="md:col-span-2 pb-2 border-b border-slate-200">
-                            <label class="label-title">Cesta de Serviços / Mês (R$)</label>
+                        <div class="md:col-span-2">
+                            <label class="label-title">Cesta de serviços bancários / mês (R$)</label>
                             <input type="number" id="cestaServicos" value="80" class="input-box" oninput="calcular()">
                         </div>
                         
-                        <div class="space-y-4 pt-2">
-                            <div class="p-4 bg-white rounded-xl border border-slate-200">
-                                <label class="label-title text-blue-600 font-bold">TED: Custo Unitário (R$)</label>
-                                <input type="number" id="custoTed" value="8.00" class="input-box mb-4" oninput="calcular()">
-                                <label class="label-title">% dos Pagamentos via TED</label>
-                                <div class="flex items-center gap-3">
-                                    <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
-                                    <span id="perTedLabel" class="text-xs font-bold text-slate-700 w-10">50%</span>
-                                </div>
+                        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <label class="label-title text-blue-600 font-black">TED: Custo Unitário (R$)</label>
+                            <input type="number" id="custoTed" value="8.00" class="input-box mb-4" oninput="calcular()">
+                            <label class="label-title">% de Uso do TED</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
+                                <span id="perTedLabel" class="text-xs font-black text-slate-700 w-10">50%</span>
                             </div>
                         </div>
 
-                        <div class="space-y-4 pt-2">
-                            <div class="p-4 bg-white rounded-xl border border-slate-200">
-                                <label class="label-title text-emerald-600 font-bold">PIX PJ: Custo Unitário (R$)</label>
-                                <input type="number" id="custoPixPJ" value="2.00" class="input-box mb-4" oninput="calcular()">
-                                <label class="label-title">% dos Pagamentos via PIX</label>
-                                <div class="flex items-center gap-3">
-                                    <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
-                                    <span id="perPixLabel" class="text-xs font-bold text-slate-700 w-10">50%</span>
-                                </div>
+                        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <label class="label-title text-emerald-600 font-black">PIX PJ: Custo Unitário (R$)</label>
+                            <input type="number" id="custoPixPJ" value="2.00" class="input-box mb-4" oninput="calcular()">
+                            <label class="label-title">% de Uso do PIX</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
+                                <span id="perPixLabel" class="text-xs font-black text-slate-700 w-10">50%</span>
                             </div>
                         </div>
                     </div>
@@ -95,36 +95,37 @@
 
             <div class="lg:col-span-5">
                 <div class="sticky top-10 space-y-6">
-                    <div class="card-glass p-8 bg-slate-900 text-white shadow-2xl">
-                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 border-b border-slate-800 pb-4 tracking-[0.2em]">3. Economia Estimada</h3>
+                    <div class="card-glass p-8 bg-slate-900 text-white shadow-2xl border-none">
+                        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 border-b border-slate-800 pb-4">Economia Estimada</h3>
                         
-                        <div class="space-y-8">
+                        <div class="space-y-10">
                             <div>
-                                <p class="text-blue-400 text-[10px] font-black uppercase mb-2 tracking-widest">Redução de Tempo Operacional</p>
+                                <p class="text-blue-400 text-[10px] font-black uppercase mb-3 tracking-widest">Eficiência Operacional</p>
                                 <div class="flex items-baseline gap-2">
-                                    <span id="resHoras" class="text-4xl font-bold text-white">0 Horas</span>
-                                    <span class="text-slate-400 text-sm">/mês</span>
+                                    <span id="resHoras" class="text-5xl font-black text-white">0</span>
+                                    <span class="text-slate-400 text-sm font-bold uppercase">Horas /mês</span>
                                 </div>
-                                <p id="resValorTempo" class="text-sm text-slate-400 mt-2 font-medium">Economia em Mão de Obra: R$ 0,00</p>
+                                <p id="resValorTempo" class="text-sm text-slate-400 mt-2 font-medium">Economia Mão de Obra: R$ 0,00</p>
                             </div>
 
                             <div>
-                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-2 tracking-widest">Economia Mensal Tarifas</p>
-                                <p id="resTarifas" class="text-4xl font-bold text-emerald-400">R$ 0,00</p>
+                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-3 tracking-widest">Economia com Tarifas</p>
+                                <p id="resTarifas" class="text-5xl font-black text-emerald-400 tracking-tighter">R$ 0,00</p>
+                                <p class="text-slate-400 text-[10px] uppercase mt-2 font-bold tracking-widest italic">Custo Mensal Banco</p>
                             </div>
 
                             <div class="pt-8 border-t border-slate-800">
                                 <p class="text-white text-[10px] font-black uppercase mb-2 tracking-widest">Economia Mensal Total</p>
-                                <p id="resTotal" class="text-5xl font-black text-white tracking-tighter">R$ 0,00</p>
-                                <div class="mt-8 p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl">
-                                    <p class="text-[10px] text-emerald-400 font-black uppercase mb-1">Economia Anual Total</p>
-                                    <p id="resAnual" class="text-3xl font-bold text-white tracking-tight">R$ 0,00</p>
+                                <p id="resTotal" class="text-6xl font-black text-white tracking-tighter">R$ 0,00</p>
+                                <div class="mt-8 p-6 bg-blue-600/10 border border-blue-600/30 rounded-[2rem] text-center">
+                                    <p class="text-[10px] text-blue-400 font-black uppercase mb-1 tracking-[0.15em]">Economia Anual Total</p>
+                                    <p id="resAnual" class="text-4xl font-black text-white tracking-tight">R$ 0,00</p>
                                 </div>
                             </div>
 
-                            <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-3">
-                                <i data-lucide="file-text" class="w-5 h-5"></i>
-                                Exportar Proposta de Valor
+                            <button onclick="window.print()" class="w-full bg-white text-slate-900 hover:bg-slate-100 font-black py-4 rounded-xl transition-all shadow-xl flex items-center justify-center gap-3 uppercase text-xs tracking-widest">
+                                <i data-lucide="file-check" class="w-5 h-5 text-blue-600"></i>
+                                Gerar Relatório PDF
                             </button>
                         </div>
                     </div>
@@ -147,44 +148,47 @@
         }
 
         function calcular() {
+            // Captura de Inputs
             const qtd = parseFloat(document.getElementById('qtdPagamentos').value) || 0;
             const salario = parseFloat(document.getElementById('salarioMedio').value) || 0;
             const minHoje = parseFloat(document.getElementById('minutosHoje').value) || 0;
             const numFunc = parseFloat(document.getElementById('numFuncionarios').value) || 0;
+            const numContas = parseFloat(document.getElementById('numContas').value) || 0;
             const cesta = parseFloat(document.getElementById('cestaServicos').value) || 0;
             const custoTed = parseFloat(document.getElementById('custoTed').value) || 0;
             const custoPixPJ = parseFloat(document.getElementById('custoPixPJ').value) || 0;
             const pTed = (parseFloat(document.getElementById('perTed').value) || 0) / 100;
             const pPix = (parseFloat(document.getElementById('perPix').value) || 0) / 100;
 
-            // 1. CÁLCULO DE TEMPO (CONFORME PLANILHA)
-            // Horas gastas hoje = (Qtd * Minutos * Func) / 60
-            const horasHoje = (qtd * minHoje * numFunc) / 60;
-            // Benchmark Superlógica: Redução de 66% (Multiplicador 0.34 conforme sua planilha)
-            const horasSuperlogica = horasHoje * 0.341; 
-            const ganhoHoras = horasHoje - horasSuperlogica;
+            // --- LÓGICA FIEL À PLANILHA ---
 
-            // Custo/Hora Analista (Base 176h conforme R$ 19,89 da planilha)
-            const valorHoraAnalista = salario / 176;
-            const economiaMaoDeObra = ganhoHoras * valorHoraAnalista;
+            // 1. TEMPO (Célula C20 a C23 da planilha)
+            const horasGastasHoje = (qtd * minHoje * numFunc) / 60; // Ex: 20,83h
+            // A planilha aplica um benchmark de redução drástica de tempo (cerca de 66% de redução)
+            const horasGastasSuperlogica = horasGastasHoje * 0.341; 
+            const horasEconomizadas = horasGastasHoje - horasGastasSuperlogica; // Ex: 13,7h
 
-            // 2. CÁLCULO DE TARIFAS (CONFORME PLANILHA)
-            const custoTedMensal = (qtd * pTed) * custoTed;
-            const custoPixMensal = (qtd * pPix) * custoPixPJ;
-            const custoCestaMensal = cesta * 3; // Planilha multiplica a cesta por 3 (nº de contas)
+            // 2. VALOR DA HORA (Célula C25 da planilha)
+            const valorHoraAnalista = salario / 176; // 176h resulta nos R$ 19,89 exatos
+            const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista; // Ex: R$ 273,02
 
-            const economiaTarifas = custoTedMensal + custoPixMensal + custoCestaMensal;
+            // 3. TARIFAS BANCÁRIAS (Célula C27 e C28 da planilha)
+            const custoCestaTotal = cesta * numContas; // Cesta unitária multiplicada pelo nº de contas
+            const custoTedTotal = (qtd * pTed) * custoTed;
+            const custoPixTotal = (qtd * pPix) * custoPixPJ;
+            
+            const economiaTarifas = custoCestaTotal + custoTedTotal + custoPixTotal; // Soma do gasto atual que será eliminado
 
-            // 3. TOTAIS
-            const totalMensal = economiaTarifas + economiaMaoDeObra;
-            const totalAnual = totalMensal * 12;
+            // 4. RESULTADOS FINAIS (Células C30 e C31)
+            const economiaMensalTotal = economiaMaoDeObra + economiaTarifas;
+            const economiaAnualTotal = economiaMensalTotal * 12;
 
-            // UPDATE UI
-            document.getElementById('resHoras').innerText = ganhoHoras.toFixed(1).replace('.', ',') + " Horas";
-            document.getElementById('resValorTempo').innerText = "Economia em Mão de Obra: " + economiaMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            // ATUALIZAÇÃO DA TELA
+            document.getElementById('resHoras').innerText = horasEconomizadas.toFixed(1).replace('.', ',');
+            document.getElementById('resValorTempo').innerText = "Economia Mão de Obra: " + economiaMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             document.getElementById('resTarifas').innerText = economiaTarifas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resTotal').innerText = totalMensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resAnual').innerText = totalAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('resTotal').innerText = economiaMensalTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('resAnual').innerText = economiaAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
         window.onload = calcular;
