@@ -72,13 +72,19 @@
                             <label class="label-title text-blue-600 font-black tracking-tighter">TED: Custo Unitário (R$)</label>
                             <input type="number" id="custoTed" value="8.00" class="input-box mb-4" oninput="calcular()">
                             <label class="label-title">% de TED</label>
-                            <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="perTed" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
+                                <span id="perTedLabel" class="text-xs font-black text-slate-700 w-12 text-right">50%</span>
+                            </div>
                         </div>
                         <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
                             <label class="label-title text-emerald-600 font-black tracking-tighter">PIX PJ: Custo Unitário (R$)</label>
                             <input type="number" id="custoPixPJ" value="2.00" class="input-box mb-4" oninput="calcular()">
                             <label class="label-title">% de PIX</label>
-                            <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="perPix" min="0" max="100" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
+                                <span id="perPixLabel" class="text-xs font-black text-slate-700 w-12 text-right">50%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,29 +93,29 @@
             <div class="lg:col-span-5">
                 <div class="sticky top-10 space-y-6">
                     <div class="card-glass p-8 bg-slate-900 text-white shadow-2xl border-none">
-                        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 border-b border-slate-800 pb-4">Economia Estimada</h3>
+                        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 border-b border-slate-800 pb-4">Total — Economia Estimada</h3>
                         
                         <div class="space-y-10">
                             <div>
-                                <p class="text-blue-400 text-[10px] font-black uppercase mb-3">Eficiência Operacional</p>
+                                <p class="text-blue-400 text-[10px] font-black uppercase mb-3">Redução de tempo operacional</p>
                                 <div class="flex items-baseline gap-2">
                                     <span id="resHoras" class="text-5xl font-black text-white">0</span>
                                     <span class="text-slate-400 text-sm font-bold">Horas /mês</span>
                                 </div>
-                                <p id="resValorTempo" class="text-sm text-slate-400 mt-2">Mão de Obra: R$ 0,00</p>
+                                <p id="resValorTempo" class="text-sm text-slate-400 mt-2">Mão de Obra: R$ 0</p>
                             </div>
 
                             <div>
-                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-3">Economia com Tarifas</p>
-                                <p id="resTarifas" class="text-5xl font-black text-emerald-400 tracking-tighter">R$ 0,00</p>
+                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-3">Economia mensal com tarifas</p>
+                                <p id="resTarifas" class="text-5xl font-black text-emerald-400 tracking-tighter">R$ 0</p>
                             </div>
 
                             <div class="pt-8 border-t border-slate-800">
                                 <p class="text-white text-[10px] font-black uppercase mb-2">Economia Mensal Total</p>
-                                <p id="resTotal" class="text-6xl font-black text-white tracking-tighter">R$ 0,00</p>
+                                <p id="resTotal" class="text-6xl font-black text-white tracking-tighter">R$ 0</p>
                                 <div class="mt-8 p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-[2rem] text-center">
                                     <p class="text-[10px] text-emerald-400 font-black uppercase mb-1">Economia Anual Total</p>
-                                    <p id="resAnual" class="text-4xl font-black text-white tracking-tight">R$ 0,00</p>
+                                    <p id="resAnual" class="text-4xl font-black text-white tracking-tight">R$ 0</p>
                                 </div>
                             </div>
                             <button onclick="window.print()" class="w-full bg-white text-slate-900 font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-xl">Gerar Relatório PDF</button>
@@ -123,11 +129,22 @@
     <script>
         lucide.createIcons();
 
+        // Formatação limpa (sem centavos) para bater com a planilha
+        const formatadorReais = new Intl.NumberFormat('pt-BR', { 
+            style: 'currency', 
+            currency: 'BRL',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0 
+        });
+
         function updateMix(source) {
             const perTed = document.getElementById('perTed');
             const perPix = document.getElementById('perPix');
             if (source === 'ted') { perPix.value = 100 - perTed.value; } 
             else { perTed.value = 100 - perPix.value; }
+            
+            document.getElementById('perTedLabel').innerText = perTed.value + "%";
+            document.getElementById('perPixLabel').innerText = perPix.value + "%";
             calcular();
         }
 
@@ -142,28 +159,29 @@
             const pTed = (parseFloat(document.getElementById('perTed').value) || 0) / 100;
             const pPix = (parseFloat(document.getElementById('perPix').value) || 0) / 100;
 
-            // 1. LÓGICA DE TEMPO (CONFORME C32 e C34)
-            const horasGastasHoje = (qtd * minHoje) / 60; // 500 * 2,5 / 60 = 20,83h
-            const horasSuperlogica = horasGastasHoje * 0.341; // Benchmark -66% (fixo 7,1h para 500p)
-            const horasEconomizadas = horasGastasHoje - horasSuperlogica; // 13,8h
+            // 1. LÓGICA DE TEMPO (CONFORME PLANILHA)
+            const horasGastasHoje = (qtd * minHoje) / 60; 
+            const horasEconomizadas = horasGastasHoje * 0.66; // Redução exata de 66% (Benchmark)
 
-            // 2. MÃO DE OBRA (CONFORME C37 e C38)
-            const valorHoraAnalista = salario / 176; // R$ 19,89
-            const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista; // R$ 273,00
+            // 2. MÃO DE OBRA (Salário / 176h)
+            const valorHoraAnalista = salario / 176; 
+            const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista; 
 
-            // 3. TARIFAS (CONFORME C25 a C28)
+            // 3. TARIFAS
             const economiaTarifas = (cesta * numContas) + (qtd * pTed * custoTed) + (qtd * pPix * custoPixPJ); 
 
             // 4. TOTAIS
             const totalMensal = economiaMaoDeObra + economiaTarifas;
             const totalAnual = totalMensal * 12;
 
+            // INSERINDO NA TELA
             document.getElementById('resHoras').innerText = horasEconomizadas.toFixed(1).replace('.', ',');
-            document.getElementById('resValorTempo').innerText = "Mão de Obra: " + economiaMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resTarifas').innerText = economiaTarifas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resTotal').innerText = totalMensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resAnual').innerText = totalAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('resValorTempo').innerText = "Mão de Obra: " + formatadorReais.format(economiaMaoDeObra);
+            document.getElementById('resTarifas').innerText = formatadorReais.format(economiaTarifas);
+            document.getElementById('resTotal').innerText = formatadorReais.format(totalMensal);
+            document.getElementById('resAnual').innerText = formatadorReais.format(totalAnual);
         }
+        
         window.onload = calcular;
     </script>
 </body>
