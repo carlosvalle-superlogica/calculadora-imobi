@@ -3,66 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Eficiência - Imobi</title>
+    <title>Calculadora de Eficiência Superlógica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .card-glass { background: white; border: 1px solid #e2e8f0; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-weight: 500; outline: none; transition: all 0.2s; }
-        .input-box:focus { border-color: #2563eb; background: white; ring: 2px solid #dbeafe; }
-        .accent-text { color: #2563eb; font-weight: 700; }
+        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; font-weight: 500; outline: none; transition: all 0.2s; font-size: 14px; }
+        .input-box:focus { border-color: #2563eb; background: white; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .label-title { display: block; text-transform: uppercase; font-size: 10px; font-weight: 800; color: #64748b; margin-bottom: 6px; letter-spacing: 0.05em; }
     </style>
 </head>
 <body class="p-4 md:p-10">
     <div class="max-w-6xl mx-auto">
-        <header class="mb-10 text-center md:text-left">
-            <h1 class="text-3xl font-extrabold tracking-tight">Calculadora de Economia & Produtividade</h1>
-            <p class="text-slate-500">Demonstre o valor real da operação além das tarifas.</p>
+        <header class="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900">Análise de Viabilidade Econômica</h1>
+                <p class="text-slate-500 text-sm font-medium">Eficiência Operacional vs. Custos Bancários</p>
+            </div>
+            <div class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                Modo Consultor
+            </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-7 space-y-6">
                 
-                <div class="card-glass p-8">
+                <div class="card-glass p-6">
                     <div class="flex items-center gap-3 mb-6 text-blue-600">
-                        <i data-lucide="users" class="w-6 h-6"></i>
-                        <h2 class="text-lg font-bold">Dados Operacionais do Cliente</h2>
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                        <h2 class="text-md font-bold uppercase tracking-tight">Operação & Mão de Obra</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Nº de pagamentos por mês</label>
+                            <label class="label-title">Nº Pagamentos / Mês</label>
                             <input type="number" id="qtdPagamentos" value="500" class="input-box" oninput="calcular()">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Minutos gastos p/ pagamento (Hoje)</label>
+                            <label class="label-title">Salário Médio Analista (R$)</label>
+                            <input type="number" id="salarioMedio" value="3500" class="input-box" oninput="calcular()">
+                        </div>
+                        <div>
+                            <label class="label-title">Minutos por Pagamento (Hoje)</label>
                             <input type="number" id="minutosHoje" value="10" class="input-box" oninput="calcular()">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Nº de funcionários no financeiro</label>
+                            <label class="label-title">Nº de Funcionários</label>
                             <input type="number" id="numFuncionarios" value="1" class="input-box" oninput="calcular()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Salário médio analista (R$)</label>
-                            <input type="number" id="salarioMedio" value="3500" class="input-box" oninput="calcular()">
                         </div>
                     </div>
                 </div>
 
-                <div class="card-glass p-8 bg-slate-50">
+                <div class="card-glass p-6 bg-slate-50">
                     <div class="flex items-center gap-3 mb-6 text-slate-700">
-                        <i data-lucide="landmark" class="w-6 h-6"></i>
-                        <h2 class="text-lg font-bold">Custos Bancários Atuais</h2>
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                        <h2 class="text-md font-bold uppercase tracking-tight">Cenário Bancário Atual</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Custo médio por TED (R$)</label>
-                            <input type="number" id="custoTed" value="8.50" class="input-box" oninput="calcular()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Cesta de Serviços / Mês (R$)</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                        <div class="md:col-span-2 pb-2 border-b border-slate-200">
+                            <label class="label-title">Cesta de Serviços / Mês (R$)</label>
                             <input type="number" id="cestaServicos" value="250" class="input-box" oninput="calcular()">
+                        </div>
+                        
+                        <div class="space-y-4 pt-2">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <label class="label-title text-blue-600">TED: Custo Unitário (R$)</label>
+                                <input type="number" id="custoTed" value="8.50" class="input-box" oninput="calcular()">
+                                <label class="label-title mt-3">% dos Pagamentos via TED</label>
+                                <div class="flex items-center gap-3">
+                                    <input type="range" id="perTed" min="0" max="100" value="70" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateMix('ted')">
+                                    <span id="perTedLabel" class="text-sm font-bold text-slate-700 w-12 text-right">70%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200">
+                                <label class="label-title text-emerald-600">PIX PJ: Custo Unitário (R$)</label>
+                                <input type="number" id="custoPixPJ" value="1.50" class="input-box" oninput="calcular()">
+                                <label class="label-title mt-3">% dos Pagamentos via PIX</label>
+                                <div class="flex items-center gap-3">
+                                    <input type="range" id="perPix" min="0" max="100" value="30" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateMix('pix')">
+                                    <span id="perPixLabel" class="text-sm font-bold text-slate-700 w-12 text-right">30%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,32 +95,41 @@
 
             <div class="lg:col-span-5">
                 <div class="sticky top-10 space-y-6">
-                    <div class="card-glass p-8 bg-white border-2 border-blue-600 relative overflow-hidden">
-                        <h3 class="text-xs font-black uppercase tracking-tighter text-blue-600 mb-6">Resultado da Consultoria</h3>
+                    <div class="card-glass p-8 bg-slate-900 text-white relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 opacity-10">
+                            <i data-lucide="trending-up" class="w-40 h-40"></i>
+                        </div>
                         
-                        <div class="space-y-6">
-                            <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                                <p class="text-blue-800 text-xs font-bold uppercase mb-1">Ganho de Produtividade (Tempo)</p>
-                                <p id="resHoras" class="text-2xl font-black text-blue-700">0 Horas / mês</p>
-                                <p id="resValorTempo" class="text-sm font-medium text-blue-600 mt-1">Equivalente a R$ 0,00 em salário</p>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 border-b border-slate-800 pb-4">Análise de Impacto Mensal</h3>
+                        
+                        <div class="space-y-8 relative z-10">
+                            <div>
+                                <p class="text-blue-400 text-[10px] font-black uppercase mb-2">Ganho de Produtividade</p>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="resHoras" class="text-3xl font-bold">0 Horas</span>
+                                    <span class="text-slate-400 text-sm font-medium">economizadas</span>
+                                </div>
+                                <p id="resValorTempo" class="text-sm text-slate-400 mt-1">Valoração: R$ 0,00</p>
                             </div>
 
-                            <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                                <p class="text-emerald-800 text-xs font-bold uppercase mb-1">Economia Mensal com Tarifas</p>
-                                <p id="resTarifas" class="text-2xl font-black text-emerald-600">R$ 0,00</p>
+                            <div>
+                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-2">Economia Tarifária</p>
+                                <p id="resTarifas" class="text-3xl font-bold text-emerald-400">R$ 0,00</p>
+                                <p class="text-slate-400 text-xs mt-1">Redução direta em taxas e cesta bancária</p>
                             </div>
 
-                            <div class="pt-6 border-t border-slate-100">
-                                <p class="text-slate-400 text-xs font-bold uppercase mb-1">Economia Total Estimada (Mensal)</p>
-                                <p id="resTotal" class="text-4xl font-black text-slate-900 tracking-tight">R$ 0,00</p>
-                                <div class="mt-4 p-3 bg-slate-900 rounded-xl text-center">
-                                    <p class="text-white text-xs font-bold uppercase">Impacto Anual: <span id="resAnual" class="text-emerald-400">R$ 0,00</span></p>
+                            <div class="pt-8 border-t border-slate-800">
+                                <p class="text-white text-[10px] font-black uppercase mb-2 tracking-widest">Valor Total de Entrega</p>
+                                <p id="resTotal" class="text-5xl font-black text-white tracking-tighter">R$ 0,00</p>
+                                <div class="mt-6 p-4 bg-blue-600/20 border border-blue-600/30 rounded-2xl">
+                                    <p class="text-xs text-blue-300 font-bold uppercase mb-1">Economia Anual Total</p>
+                                    <p id="resAnual" class="text-2xl font-bold text-white">R$ 0,00</p>
                                 </div>
                             </div>
 
-                            <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
-                                <i data-lucide="file-check" class="w-5 h-5"></i>
-                                Gerar Relatório de Valor
+                            <button onclick="window.print()" class="w-full bg-white text-slate-900 hover:bg-slate-100 font-bold py-4 rounded-2xl transition-all shadow-xl flex items-center justify-center gap-3">
+                                <i data-lucide="download" class="w-5 h-5 text-blue-600"></i>
+                                Exportar Proposta de Valor
                             </button>
                         </div>
                     </div>
@@ -107,49 +141,56 @@
     <script>
         lucide.createIcons();
 
-        function calcular() {
-            // Inputs Operacionais
-            const qtd = parseFloat(document.getElementById('qtdPagamentos').value) || 0;
-            const minHoje = parseFloat(document.getElementById('minutosHoje').value) || 0;
-            const numFunc = parseFloat(document.getElementById('numFuncionarios').value) || 0;
-            const salario = parseFloat(document.getElementById('salarioMedio').value) || 0;
+        function updateMix(source) {
+            const perTed = document.getElementById('perTed');
+            const perPix = document.getElementById('perPix');
             
-            // Inputs Financeiros
-            const custoTed = parseFloat(document.getElementById('custoTed').value) || 0;
-            const cesta = parseFloat(document.getElementById('cestaServicos').value) || 0;
-
-            // Constantes da Proposta (Superlógica)
-            const minSuperlogica = 1; // Reduz para 1 minuto com automação
-            const custoPixSuperlogica = 0.50; // Exemplo de custo baixo fixo
-            const mensalidadeSuperlogica = 199;
-
-            // 1. Cálculo de Tempo
-            const horasHoje = (qtd * minHoje) / 60;
-            const horasSuperlogica = (qtd * minSuperlogica) / 60;
-            const horasEconomizadas = horasHoje - horasSuperlogica;
-
-            // 2. Cálculo de Valor do Tempo (Salário / 160h mensais)
-            const valorHora = salario / 160;
-            const ganhoProdutividade = horasEconomizadas * valorHora;
-
-            // 3. Cálculo Financeiro (Tarifas)
-            const gastoBanco = (qtd * custoTed) + cesta;
-            const gastoSuperlogica = (qtd * custoPixSuperlogica) + mensalidadeSuperlogica;
-            const economiaTarifas = gastoBanco - gastoSuperlogica;
-
-            // 4. Totais
-            const economiaMensalTotal = economiaTarifas + ganhoProdutividade;
-            const economiaAnual = economiaMensalTotal * 12;
-
-            // Update UI
-            document.getElementById('resHoras').innerText = Math.round(horasEconomizadas) + " Horas / mês";
-            document.getElementById('resValorTempo').innerText = "Equivalente a " + ganhoProdutividade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + " em produtividade";
-            document.getElementById('resTarifas').innerText = economiaTarifas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resTotal').innerText = economiaMensalTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resAnual').innerText = economiaAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if (source === 'ted') {
+                perPix.value = 100 - perTed.value;
+            } else {
+                perTed.value = 100 - perPix.value;
+            }
+            
+            document.getElementById('perTedLabel').innerText = perTed.value + "%";
+            document.getElementById('perPixLabel').innerText = perPix.value + "%";
+            calcular();
         }
 
-        calcular();
-    </script>
-</body>
-</html>
+        function calcular() {
+            // Inputs
+            const qtd = parseFloat(document.getElementById('qtdPagamentos').value) || 0;
+            const salario = parseFloat(document.getElementById('salarioMedio').value) || 0;
+            const minHoje = parseFloat(document.getElementById('minutosHoje').value) || 0;
+            const cesta = parseFloat(document.getElementById('cestaServicos').value) || 0;
+            const custoTed = parseFloat(document.getElementById('custoTed').value) || 0;
+            const custoPixPJ = parseFloat(document.getElementById('custoPixPJ').value) || 0;
+            const pTed = (parseFloat(document.getElementById('perTed').value) || 0) / 100;
+            const pPix = (parseFloat(document.getElementById('perPix').value) || 0) / 100;
+
+            // Constantes Superlógica (Mantenha ou ajuste conforme necessário)
+            const minSuperlogica = 1;
+            const custoUnicoSuperlogica = 0.50; // Custo médio Pix na nossa solução
+            const mensalidadeSaas = 199;
+
+            // 1. Cálculo Financeiro Atual
+            const totalTed = (qtd * pTed) * custoTed;
+            const totalPix = (qtd * pPix) * custoPixPJ;
+            const custoAtualBanco = totalTed + totalPix + cesta;
+
+            // 2. Cálculo Superlógica
+            const custoSuperlogica = (qtd * custoUnicoSuperlogica) + mensalidadeSaas;
+            const economiaTarifas = custoAtualBanco - custoSuperlogica;
+
+            // 3. Cálculo de Produtividade (Mão de Obra)
+            const horasHoje = (qtd * minHoje) / 60;
+            const horasSuperlogica = (qtd * minSuperlogica) / 60;
+            const ganhoHoras = horasHoje - horasSuperlogica;
+            const valorHora = salario / 160; // 160h úteis/mês
+            const ganhoFinanceiroTempo = ganhoHoras * valorHora;
+
+            // 4. Totais
+            const economiaTotalMensal = economiaTarifas + ganhoFinanceiroTempo;
+            const economiaAnual = economiaTotalMensal * 12;
+
+            // Update UI
+            document.getElementById('resHoras').innerText = Math.round(gan
