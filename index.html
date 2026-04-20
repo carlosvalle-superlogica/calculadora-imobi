@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .card-glass { background: white; border: 1px solid #e2e8f0; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; font-weight: 600; outline: none; transition: all 0.2s; font-size: 14px; color: #0f172a; }
+        .input-box { width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; font-weight: 700; outline: none; transition: all 0.2s; font-size: 14px; color: #0f172a; }
         .input-box:focus { border-color: #2563eb; background: white; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
         .label-title { display: block; text-transform: uppercase; font-size: 10px; font-weight: 800; color: #64748b; margin-bottom: 6px; letter-spacing: 0.05em; }
     </style>
@@ -20,10 +20,10 @@
         <header class="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
                 <h1 class="text-2xl font-black tracking-tight text-slate-900 uppercase">Calculadora de Eficiência Imobi</h1>
-                <p class="text-slate-500 text-sm font-medium italic">Fiel aos parâmetros da planilha de economia</p>
+                <p class="text-slate-500 text-sm font-medium italic">Versão Final: Sincronizada com Planilha de Economia</p>
             </div>
             <div class="bg-blue-600 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
-                Resultado de Alta Precisão
+                Proposta de Valor
             </div>
         </header>
 
@@ -33,7 +33,7 @@
                 <div class="card-glass p-6">
                     <div class="flex items-center gap-3 mb-6 text-blue-600 border-b pb-4">
                         <i data-lucide="users" class="w-5 h-5"></i>
-                        <h2 class="text-sm font-black uppercase tracking-widest">1. Dados Operacionais</h2>
+                        <h2 class="text-sm font-black uppercase tracking-widest text-blue-600">1. Dados Operacionais do Cliente</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div>
@@ -62,7 +62,7 @@
                 <div class="card-glass p-6 bg-slate-50 border-slate-200">
                     <div class="flex items-center gap-3 mb-6 text-slate-700 border-b pb-4">
                         <i data-lucide="landmark" class="w-5 h-5"></i>
-                        <h2 class="text-sm font-black uppercase tracking-widest">2. Custos Bancários Atuais</h2>
+                        <h2 class="text-sm font-black uppercase tracking-widest text-slate-700">2. Custos Bancários Atuais</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div class="md:col-span-2">
@@ -96,7 +96,7 @@
             <div class="lg:col-span-5">
                 <div class="sticky top-10 space-y-6">
                     <div class="card-glass p-8 bg-slate-900 text-white shadow-2xl border-none">
-                        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 border-b border-slate-800 pb-4">Economia Estimada</h3>
+                        <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 border-b border-slate-800 pb-4">Análise de Impacto</h3>
                         
                         <div class="space-y-10">
                             <div>
@@ -109,16 +109,16 @@
                             </div>
 
                             <div>
-                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-3 tracking-widest">Economia com Tarifas</p>
+                                <p class="text-emerald-400 text-[10px] font-black uppercase mb-3 tracking-widest text-emerald-400">Economia com Tarifas</p>
                                 <p id="resTarifas" class="text-5xl font-black text-emerald-400 tracking-tighter">R$ 0,00</p>
-                                <p class="text-slate-400 text-[10px] uppercase mt-2 font-bold tracking-widest italic">Custo Mensal Banco</p>
+                                <p class="text-slate-400 text-[10px] uppercase mt-2 font-bold tracking-widest italic">Redução direta de custos bancários</p>
                             </div>
 
                             <div class="pt-8 border-t border-slate-800">
                                 <p class="text-white text-[10px] font-black uppercase mb-2 tracking-widest">Economia Mensal Total</p>
                                 <p id="resTotal" class="text-6xl font-black text-white tracking-tighter">R$ 0,00</p>
-                                <div class="mt-8 p-6 bg-blue-600/10 border border-blue-600/30 rounded-[2rem] text-center">
-                                    <p class="text-[10px] text-blue-400 font-black uppercase mb-1 tracking-[0.15em]">Economia Anual Total</p>
+                                <div class="mt-8 p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-[2rem] text-center shadow-inner">
+                                    <p class="text-[10px] text-emerald-400 font-black uppercase mb-1 tracking-[0.15em]">Economia Anual Total</p>
                                     <p id="resAnual" class="text-4xl font-black text-white tracking-tight">R$ 0,00</p>
                                 </div>
                             </div>
@@ -162,24 +162,25 @@
 
             // --- LÓGICA FIEL À PLANILHA ---
 
-            // 1. TEMPO (Célula C20 a C23 da planilha)
-            const horasGastasHoje = (qtd * minHoje * numFunc) / 60; // Ex: 20,83h
-            // A planilha aplica um benchmark de redução drástica de tempo (cerca de 66% de redução)
+            // 1. TEMPO (Células C32 a C34 da planilha)
+            // Horas gastas hoje = (Qtd * Minutos * Func) / 60
+            const horasGastasHoje = (qtd * minHoje * numFunc) / 60; 
+            // Benchmark Superlógica: Redução de 66% (Multiplicador 0.341 conforme planilha)
             const horasGastasSuperlogica = horasGastasHoje * 0.341; 
-            const horasEconomizadas = horasGastasHoje - horasGastasSuperlogica; // Ex: 13,7h
+            const horasEconomizadas = horasGastasHoje - horasGastasSuperlogica;
 
-            // 2. VALOR DA HORA (Célula C25 da planilha)
-            const valorHoraAnalista = salario / 176; // 176h resulta nos R$ 19,89 exatos
-            const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista; // Ex: R$ 273,02
+            // 2. VALOR DA HORA (Célula C37 da planilha)
+            const valorHoraAnalista = salario / 176; // Salário / 176h = R$ 19,89
+            const economiaMaoDeObra = horasEconomizadas * valorHoraAnalista;
 
-            // 3. TARIFAS BANCÁRIAS (Célula C27 e C28 da planilha)
-            const custoCestaTotal = cesta * numContas; // Cesta unitária multiplicada pelo nº de contas
+            // 3. TARIFAS BANCÁRIAS (Células C25 a C28 da planilha)
+            const custoCestaTotal = cesta * numContas; 
             const custoTedTotal = (qtd * pTed) * custoTed;
             const custoPixTotal = (qtd * pPix) * custoPixPJ;
             
-            const economiaTarifas = custoCestaTotal + custoTedTotal + custoPixTotal; // Soma do gasto atual que será eliminado
+            const economiaTarifas = custoCestaTotal + custoTedTotal + custoPixTotal; 
 
-            // 4. RESULTADOS FINAIS (Células C30 e C31)
+            // 4. RESULTADOS FINAIS (Células C42 e C43)
             const economiaMensalTotal = economiaMaoDeObra + economiaTarifas;
             const economiaAnualTotal = economiaMensalTotal * 12;
 
@@ -188,9 +189,10 @@
             document.getElementById('resValorTempo').innerText = "Economia Mão de Obra: " + economiaMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             document.getElementById('resTarifas').innerText = economiaTarifas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             document.getElementById('resTotal').innerText = economiaMensalTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resAnual').innerText = economiaAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('resAnual').innerText = economiaAnualTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
+        // Força o cálculo ao carregar
         window.onload = calcular;
     </script>
 </body>
